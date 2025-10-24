@@ -1,3 +1,6 @@
+import logoWhiteUrl from "../img/logo/white-logo/m-b-logo-124w.avif";
+import logoBlackUrl from "../img/logo/black-logo/M(2).png";
+
 // /assets/js/main.js
 document.addEventListener("DOMContentLoaded", () => {
   const hero = document.getElementById("hero");
@@ -5,8 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const nav = document.querySelector("nav");
   const img = hero.querySelector("img");
   const desktopLogoImg = nav?.querySelector(".logo-desktop img") ?? null;
-  const LOGO_SRC_WHITE = "/assets/img/logo/white-logo/m-b-logo-124w.avif";
-  const LOGO_SRC_BLACK = "/assets/img/logo/black-logo/M(2).png";
+  const LOGO_SRC_WHITE = logoWhiteUrl;
+  const LOGO_SRC_BLACK = logoBlackUrl;
 
   // Helper: create the HTML for a single <h1> text
   function wrapByWord(h1) {
@@ -113,6 +116,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlayQuery = window.matchMedia("(min-width: 1024px)");
   let overlayEnabled = overlayQuery.matches;
   let overlayStage = 0;
+
+  if (desktopLogoImg && desktopLogoImg.getAttribute("src") !== LOGO_SRC_WHITE) {
+    desktopLogoImg.setAttribute("src", LOGO_SRC_WHITE);
+  }
 
   const updateNavState = () => {
     if (!nav) return;

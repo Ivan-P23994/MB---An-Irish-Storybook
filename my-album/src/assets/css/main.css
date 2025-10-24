@@ -223,7 +223,264 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
   display: none;
 }
 
-/* --------- Base Desktop ONLY (existing rules left intact) --------- */
+/* ---------------- HERO TEXT BREAKPOINTS ---------------- */
+#hero {
+  --hero-fade-delay: 0.3s;
+  --hero-fade-duration: 0.4s;
+  --hero-scroll-overlay: 0;
+  position: relative;
+  width: 100%;
+  height: auto;
+  background: #000;
+  overflow: hidden;
+}
+
+#hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 1;
+  animation: hero-overlay-hide var(--hero-fade-duration) ease-out forwards;
+  animation-delay: var(--hero-fade-delay);
+}
+
+#hero picture,
+#hero img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-text {
+  position: absolute;
+  left: 50%;
+  bottom: 25%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3em;
+  text-align: center;
+  color: #fff;
+  z-index: 2;
+  width: 90%;
+  font-family: "Bitter", serif;
+}
+
+#hero .hero-text h1 span {
+  font-weight: 600;
+  font-size: 1.6rem; /* mobile */
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  font-family: "Bodoni Moda", sans-serif;
+}
+
+/* ---------- column-wise letter reveal (from above) ---------- */
+
+/* hero fade (unchanged) */
+#hero {
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+}
+#hero.is-visible {
+  opacity: 1;
+}
+
+/* ensure letters are inline-block so transforms work */
+#hero .hero-text h1 {
+  display: inline-block;
+  overflow: visible;
+  white-space: normal; /* allow wrapping if desired */
+}
+
+/* letter spans: start above and hidden */
+#hero .hero-text h1 .letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-3rem);
+  transition: opacity 0.2s ease-out,
+    transform 0.5s cubic-bezier(0.34, 0.7, 0.5, 1);
+  /* var(--col) is index inside word; var(--tick) controls spacing */
+  transition-delay: calc(var(--col, 0) * var(--tick, 0.16s));
+  will-change: opacity, transform;
+}
+
+/* spaces between words: keep visible gap, no animation */
+#hero .hero-text h1 .word-space {
+  display: inline-block;
+  width: 1em; /* adjust gap */
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* when visible, animate letters into place */
+#hero.is-visible .hero-text h1 .letter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes hero-overlay-hide {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Optional: slight extra delay for second h1 line */
+#hero.is-visible .hero-text h1:nth-of-type(2) .letter {
+  /* add a base offset if you want second line to start later */
+  transition-delay: calc(var(--col, 0) * var(--tick, 0.12s) + 0s);
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #hero,
+  #hero .hero-text h1 .letter {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  #hero::before {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  #hero::after {
+    transition: none !important;
+  }
+  #hero .hero-text h1 .word-space {
+    width: 0.6em;
+  }
+}
+
+.white-filler {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding-block: clamp(6rem, 12vh, 10rem);
+  margin-block: clamp(3rem, 8vh, 6rem);
+  background-color: #ffffff;
+  color: #111;
+  text-transform: uppercase;
+  font-family: "Bodoni Moda", sans-serif;
+  letter-spacing: 0.08em;
+  position: relative;
+  overflow: hidden;
+}
+
+.mountain-divider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  line-height: 0;
+  overflow: hidden;
+  background: transparent;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mountain-divider svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.upcoming-release {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 3rem;
+}
+
+.black-filler {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+  padding-block: clamp(3rem, 8vh, 6rem);
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: "Bodoni Moda", sans-serif;
+  letter-spacing: 0.08em;
+  position: relative;
+  height: 25vh;
+}
+
+.black-filler .vinyl-cover-art {
+  display: block;
+  width: min(85vw, 20rem);
+  position: relative;
+  top: -5rem;
+  margin-bottom: -1rem;
+  z-index: 1;
+
+}
+
+
+  /* ==========================================================
+      TABLET 768px -- 10243px BREAKPOINTS
+     ========================================================== */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .black-filler {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+    padding-block: clamp(3rem, 8vh, 6rem);
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: "Bodoni Moda", sans-serif;
+    letter-spacing: 0.08em;
+    position: relative;
+    height: 20vh;
+  }
+
+  .black-filler .vinyl-cover-art {
+    width: min(60vw, 24rem);
+    margin-bottom: -6rem;
+  }
+
+  #hero .hero-text h1 span {
+    font-size: 3rem;
+  }
+
+  .black-filler {
+    height: 33vh;
+  }
+
+  .paragraph-text {
+    font-size: 1.03rem;
+  }
+
+  .paragraph-heading {
+    font-size: 2.2rem;
+  }
+}
+
+
+  /* ==========================================================
+     DESKTOP >=1024px BREAKPOINTS
+     ========================================================== */
 
 @media (min-width: 1024px) {
   .checkbox,
@@ -248,13 +505,7 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
   .menu-items a {
     font-size: 1rem;
   }
-}
 
-/* ==========================================================
-   DESKTOP / TABLET ≥1024px TRANSPARENT OVER-HERO NAVBAR
-   ========================================================== */
-@media (min-width: 1024px) {
-  /* place nav over the hero */
   nav {
     --nav-desktop-bg: transparent;
     --nav-desktop-padding-y: clamp(10px, 2vw, 18px);
@@ -412,64 +663,7 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
   nav.is-solid .logo-desktop img {
     max-height: clamp(30px, 3.4vw, 42px);
   }
-}
 
-/* ---------------- HERO TEXT BREAKPOINTS ---------------- */
-#hero {
-  --hero-fade-delay: 0.3s;
-  --hero-fade-duration: 0.4s;
-  --hero-scroll-overlay: 0;
-  position: relative;
-  width: 100%;
-  height: auto;
-  background: #000;
-  overflow: hidden;
-}
-
-#hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: #000;
-  opacity: 1;
-  pointer-events: none;
-  z-index: 1;
-  animation: hero-overlay-hide var(--hero-fade-duration) ease-out forwards;
-  animation-delay: var(--hero-fade-delay);
-}
-
-#hero picture,
-#hero img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-text {
-  position: absolute;
-  left: 50%;
-  bottom: 25%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3em;
-  text-align: center;
-  color: #fff;
-  z-index: 2;
-  width: 90%;
-  font-family: "Bitter", serif;
-}
-
-#hero .hero-text h1 span {
-  font-weight: 600;
-  font-size: 2rem; /* mobile */
-  line-height: 1.2;
-  letter-spacing: 0.5px;
-  font-family: "Bodoni Moda", sans-serif;
-}
-
-@media (min-width: 1024px) {
   #hero::after {
     content: "";
     position: absolute;
@@ -484,190 +678,11 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
   #hero .hero-text h1 span {
     font-size: 5rem;
   }
-}
 
-/* ---------- column-wise letter reveal (from above) ---------- */
-
-/* hero fade (unchanged) */
-#hero {
-  opacity: 0;
-  transition: opacity 0.8s ease-out;
-}
-#hero.is-visible {
-  opacity: 1;
-}
-
-/* ensure letters are inline-block so transforms work */
-#hero .hero-text h1 {
-  display: inline-block;
-  overflow: visible;
-  white-space: normal; /* allow wrapping if desired */
-}
-
-/* letter spans: start above and hidden */
-#hero .hero-text h1 .letter {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(-3rem);
-  transition: opacity 0.2s ease-out,
-    transform 0.5s cubic-bezier(0.34, 0.7, 0.5, 1);
-  /* var(--col) is index inside word; var(--tick) controls spacing */
-  transition-delay: calc(var(--col, 0) * var(--tick, 0.16s));
-  will-change: opacity, transform;
-}
-
-/* spaces between words: keep visible gap, no animation */
-#hero .hero-text h1 .word-space {
-  display: inline-block;
-  width: 1em; /* adjust gap */
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
-
-/* when visible, animate letters into place */
-#hero.is-visible .hero-text h1 .letter {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@keyframes hero-overlay-hide {
-  to {
-    opacity: 0;
-  }
-}
-
-/* Optional: slight extra delay for second h1 line */
-#hero.is-visible .hero-text h1:nth-of-type(2) .letter {
-  /* add a base offset if you want second line to start later */
-  transition-delay: calc(var(--col, 0) * var(--tick, 0.12s) + 0s);
-}
-
-/* reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  #hero,
-  #hero .hero-text h1 .letter {
-    transition: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  #hero::before {
-    animation: none !important;
-    opacity: 0 !important;
-  }
-  #hero::after {
-    transition: none !important;
-  }
-  #hero .hero-text h1 .word-space {
-    width: 0.6em;
-  }
-}
-
-@media (min-width: 1024px) {
   #hero {
     margin-top: calc(-1 * var(--nav-desktop-height, 0px));
   }
-}
 
-.white-filler {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.6rem;
-  width: 100%;
-  padding-block: clamp(6rem, 12vh, 10rem);
-  margin-block: clamp(3rem, 8vh, 6rem);
-  background-color: #ffffff;
-  color: #111;
-  text-transform: uppercase;
-  font-family: "Bodoni Moda", sans-serif;
-  letter-spacing: 0.08em;
-  position: relative;
-  overflow: hidden;
-}
-
-.mountain-divider {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  line-height: 0;
-  overflow: hidden;
-  background: transparent;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.mountain-divider svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.upcoming-release {
-  position: relative;
-  z-index: 1;
-  padding-bottom: 3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4rem;
-  margin-bottom: 3rem;
-}
-
-.black-filler {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.2rem;
-  padding-block: clamp(3rem, 8vh, 6rem);
-  width: 100%;
-  background-color: #000;
-  color: #fff;
-  text-transform: uppercase;
-  font-family: "Bodoni Moda", sans-serif;
-  letter-spacing: 0.08em;
-  position: relative;
-  height: 20vh;
-}
-
-.black-filler .vinyl-cover-art {
-  display: block;
-  width: min(85vw, 20rem);
-  position: relative;
-  top: -9rem;
-  margin-bottom: -1rem;
-  z-index: 1;
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .black-filler .vinyl-cover-art {
-    width: min(60vw, 24rem);
-    margin-bottom: -6rem;
-  }
-
-  #hero .hero-text h1 span {
-    font-size: 3rem;
-  }
-
-  .black-filler {
-    height: 33vh;
-  }
-
-  .paragraph-text {
-    font-size: 1.03rem;
-  }
-
-  .paragraph-heading {
-    font-size: 2.2rem;
-  }
-}
-
-@media (min-width: 1024px) {
   .black-filler {
     height: 40vh;
   }
@@ -682,269 +697,5 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
 
   .paragraph-heading {
     font-size: 2.7rem;
-  }
-}
-
-.container {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  position: relative;
-  border-radius: 50%;
-  margin-top: 2rem;
-  left: 35%;
-}
-
-.play-btn {
-  position: absolute;
-  appearance: none;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: #ffffff;
-  cursor: pointer;
-  outline: none;
-}
-
-.play-btn::before {
-  content: "";
-  position: absolute;
-  width: 93%;
-  height: 93%;
-  background-color: #000;
-  border-radius: 50%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.play-btn:checked {
-  animation: borderAnimate 700ms ease-in-out 1;
-  animation-fill-mode: forwards;
-}
-
-@keyframes borderAnimate {
-  0% {
-    transform: rotate(0);
-    background: #ffffff;
-  }
-
-  80% {
-    background: #ffffff;
-  }
-
-  100% {
-    transform: rotate(360deg);
-    background: #ffffff;
-  }
-}
-
-.play-icon {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  left: 60%;
-  top: 50%;
-  background-color: #ffffff;
-  transform: translate(-60%, -50%) rotate(90deg);
-  clip-path: polygon(50% 15%, 0% 100%, 100% 100%);
-  transition: all 400ms ease-in-out;
-  cursor: pointer;
-}
-
-.play-btn:checked + .play-icon {
-  clip-path: polygon(0 100%, 0% 100%, 100% 100%);
-}
-
-.pause-icon {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-}
-
-.pause-icon::before {
-  content: "";
-  position: absolute;
-  width: 0%;
-  height: 100%;
-  background-color: #ffffff;
-  left: 0;
-}
-
-.pause-icon::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 100%;
-  background-color: #ffffff;
-  right: 0;
-}
-
-.play-btn:checked ~ .pause-icon::before {
-  animation: reveal 300ms ease-in-out 350ms 1;
-  animation-fill-mode: forwards;
-}
-
-.play-btn:checked ~ .pause-icon::after {
-  animation: reveal 300ms ease-in-out 600ms 1;
-  animation-fill-mode: forwards;
-}
-
-@keyframes reveal {
-  0% {
-    width: 0;
-  }
-
-  100% {
-    width: 35%;
-  }
-}
-
-#mc_embed_shell {
-  width: min(100%, 600px);
-  background: #fff;
-  color: #111;
-  padding: clamp(1.5rem, 4vw, 2.5rem);
-  border-radius: 0.75rem;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-}
-
-#mc_embed_signup {
-  width: 100%;
-  font-family: "Spectral", sans-serif;
-  font-size: 0.95rem;
-}
-
-#mc_embed_signup_scroll {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-#mc_embed_signup h2 {
-  font-family: "Bodoni Moda", serif;
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-align: center;
-}
-
-#mc_embed_signup .indicates-required {
-  font-size: 0.75rem;
-  color: #666;
-  text-align: center;
-}
-
-#mc_embed_signup .mc-field-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-#mc_embed_signup label {
-  font-size: 0.85rem;
-  color: #333;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-#mc_embed_signup input[type="email"] {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #d1d1d1;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-#mc_embed_signup input[type="email"]:focus {
-  border-color: #111;
-  box-shadow: 0 0 0 4px rgba(17, 17, 17, 0.1);
-  outline: none;
-}
-
-#mc_embed_signup .button {
-  padding: 0.75rem 2.5rem;
-  border: none;
-  border-radius: 999px;
-  background: #111;
-  color: #fff;
-  font-family: "Bodoni Moda", serif;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-#mc_embed_signup .button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-#mc_embed_signup .clear.foot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.mc-hidden {
-  position: absolute;
-  left: -5000px;
-}
-
-.mc-referral {
-  margin: 0 auto;
-}
-
-.mc-referral a {
-  text-decoration: none;
-}
-
-.mc-referral-badge {
-  display: inline-flex;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.5rem;
-  background-color: transparent;
-  justify-content: center;
-  align-items: center;
-}
-
-.refferal_badge {
-  width: 220px;
-  height: 40px;
-  display: block;
-}
-
-#mc_embed_signup .response {
-  display: none;
-  font-size: 0.85rem;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-}
-
-#mce-error-response {
-  background-color: rgba(213, 56, 56, 0.12);
-  color: #a50000;
-}
-
-#mce-success-response {
-  background-color: rgba(36, 161, 96, 0.12);
-  color: #0f5b30;
-}
-
-@media (min-width: 600px) {
-  #mc_embed_signup .clear.foot {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .mc-referral {
-    margin: 0;
   }
 }
