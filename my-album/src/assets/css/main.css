@@ -252,6 +252,7 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
   display: block;
   margin-left: auto;
   margin-right: auto;
+  height: 45vh;
 }
 
 .hero-text {
@@ -428,16 +429,13 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
   top: -5rem;
   margin-bottom: -1rem;
   z-index: 1;
-
 }
 
-
-  /* ==========================================================
+/* ==========================================================
       TABLET 768px -- 10243px BREAKPOINTS
      ========================================================== */
 
 @media (min-width: 768px) and (max-width: 1023px) {
-
   .black-filler {
     display: flex;
     flex-direction: column;
@@ -453,6 +451,10 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
     letter-spacing: 0.08em;
     position: relative;
     height: 20vh;
+  }
+
+  #hero picture {
+    height: 60vh;
   }
 
   .black-filler .vinyl-cover-art {
@@ -477,8 +479,7 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
   }
 }
 
-
-  /* ==========================================================
+/* ==========================================================
      DESKTOP >=1024px BREAKPOINTS
      ========================================================== */
 
@@ -544,6 +545,10 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
     gap: clamp(12px, 3vw, 32px);
     height: auto;
     padding: 0 clamp(16px, 4vw, 48px);
+  }
+
+  #hero picture {
+    height: 95vh;
   }
 
   /* hide mobile-only controls and the mobile drawer on desktop */
