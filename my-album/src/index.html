@@ -1,16 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Static Album</title>
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <script defer src="/assets/js/main.js"></script>
-</head>
-<body>
-  <header><h1>The Morgan Buckley Collective</h1></header>
-  <main>
-    <img src="/assets/img/cover.jpg" alt="Album cover">
-  </main>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Static Album</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script type="module" src="/assets/js/main.js"></script>
+    <script defer src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script defer src="/assets/js/mailchimp.js"></script>
+
+  </head>
+  <body>
+    <nav>
+      <div class="navbar">
+        <div class="nav-container">
+          <div class="logo-hamburger" aria-label="Morgan & Buckley Logo">
+            <img
+              src="/assets/img/logo/black-logo/M(2).png"
+              alt="Morgan & Buckley emblem"
+              fetchpriority="high" />
+            <h1>Morgan & Buckley</h1>
+          </div>
+          <!-- Mobile controls (hidden at ≥1024px) -->
+          <input class="checkbox" type="checkbox" id="menuToggle" />
+          <div class="hamburger-lines">
+            <span class="line line1"></span>
+            <span class="line line2"></span>
+            <span class="line line3"></span>
+          </div>
+
+          <div class="menu-desktop-container">
+            <ul class="menu-desktop menu-left">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Gallery</a></li>
+              <li><a href="#">Music</a></li>
+            </ul>
+
+            <!-- Centered logo -->
+            <a class="logo-desktop" aria-label="Morgan & Buckley Logo" href="#">
+              <img
+                src="/assets/img/logo/white-logo/m-b-logo-124w.avif"
+                alt="Acme"
+                fetchpriority="high" />
+            </a>
+
+            <ul class="menu-desktop menu-right">
+              <li><a href="#">Videos</a></li>
+              <li><a href="#">Events</a></li>
+              <li><a href="#">Reviews</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Shop</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="menu-items">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">Events</a></li>
+      <li><a href="#">Reviews</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Shop</a></li>
+    </div>
+    <section id="hero">
+      <picture>
+        <!-- Modern AVIF -->
+        <source
+          type="image/avif"
+          srcset="
+            /assets/img/hero/hero-480w.avif 480w,
+            /assets/img/hero/hero-768w.avif 768w,
+            /assets/img/hero/hero-1024w.avif 1024w,
+            /assets/img/hero/hero-1440w.avif 1440w,
+            /assets/img/hero/hero-1680w.avif 1680w"
+          sizes="(max-width: 480px) 480px,
+                 (max-width: 768px) 768px,
+                 (max-width: 1024px) 1024px,
+                 (max-width: 1440px) 1440px,
+                 (max-width: 1680px) 1680px" />
+
+        <!-- WebP fallback -->
+        <source
+          type="image/webp"
+          srcset="
+            /assets/img/hero/hero-480w.webp 480w,
+            /assets/img/hero/hero-768w.webp 768w,
+            /assets/img/hero/hero-1024w.webp 1024w,
+            /assets/img/hero/hero-1440w.webp 1440w,
+            /assets/img/hero/hero-1680w.webp 1680w"
+          sizes="(max-width: 480px) 480px,
+                 (max-width: 768px) 768px,
+                 (max-width: 1024px) 1024px,
+                 (max-width: 1440px) 1440px,
+                 (max-width: 1680px) 1680px" />
+
+        <!-- Fallback for older browsers -->
+        <img
+          src="/assets/img/hero/hero-1024w.webp"
+          alt="The Collective"
+          width="1680"
+          height="1050"
+          loading="lazy"
+          decoding="async"
+          style="max-width:100%;height:auto;" />
+      </picture>
+      <div class="hero-text">
+        <h1>MORGAN & BUCKLEY</h1>
+        <h1>COLLECTIVE</h1>
+      </div>
+
+    </section>
+
+    <section class="white-filler">
+      <div class="upcoming-release">
+        <h2 class="paragraph-heading ">UPCOMING RELEASE</h2>
+        <h3 class="paragraph-text"><b>Simon Morgan</b> Presents <b>An Irish
+            Songbook</b></h3>
+        <h3 class="paragraph-text">Feat. <b>Richie Buckley Quintet</b></h3>
+      </div>
+    </section>
+
+    <section class="black-filler">
+      <div class="vinyl-cover-art">
+        <picture>
+          <source
+            type="image/avif"
+            srcset="
+            /assets/img/vinyl-cover/v-cover-480w.avif 480w,
+            /assets/img/vinyl-cover/v-cover-768w.avif 768w,
+            /assets/img/vinyl-cover/v-cover-1024w.avif 1024w,
+            /assets/img/vinyl-cover/v-cover-1440w.avif 1440w"
+            sizes="(max-width: 600px) 90vw,
+                 (max-width: 1024px) 50vw,
+                 30vw" />
+
+          <source
+            type="image/webp"
+            srcset="
+            /assets/img/vinyl-cover/v-cover-480w.webp 480w,
+            /assets/img/vinyl-cover/v-cover-768w.webp 768w,
+            /assets/img/vinyl-cover/v-cover-1024w.webp 1024w,
+            /assets/img/vinyl-cover/v-cover-1440w.webp 1440w"
+            sizes="(max-width: 600px) 90vw,
+                 (max-width: 1024px) 50vw,
+                 30vw" />
+
+          <img
+            src="/assets/img/vinyl-cover/v-cover-1024w.webp"
+            alt="An Irish Songbook vinyl cover artwork"
+            width="1440"
+            height="1439"
+            loading="lazy"
+            decoding="async"
+            style="max-width:100%;height:auto;" />
+        </picture>
+
+        <div class="container">
+          <label>
+            <input type="checkbox" class="play-btn" />
+            <div class="play-icon"></div>
+            <div class="pause-icon"></div>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="white-filler" id="email-subscription">
+      <div id="mc_embed_shell">
+        <div id="mc_embed_signup">
+          <form
+            action="https://gmail.us8.list-manage.com/subscribe/post?u=93fa3443bdef52bdade0d32a1&amp;id=4386e271ae&amp;f_id=00ee13e1f0"
+            method="post"
+            id="mc-embedded-subscribe-form"
+            name="mc-embedded-subscribe-form"
+            class="validate"
+            target="_blank"
+            novalidate>
+            <div id="mc_embed_signup_scroll">
+              <h2>Subscribe</h2>
+              <div class="indicates-required">
+                <span class="asterisk">*</span>
+                indicates required
+              </div>
+              <div class="mc-field-group">
+                <label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label>
+                <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required value="">
+              </div>
+              <div id="mce-responses" class="clear foot">
+                <div class="response" id="mce-error-response"></div>
+                <div class="response" id="mce-success-response"></div>
+              </div>
+              <div class="mc-hidden" aria-hidden="true">
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups -->
+                <input type="text" name="b_93fa3443bdef52bdade0d32a1_4386e271ae" tabindex="-1" value="">
+              </div>
+              <div class="optionalParent">
+                <div class="clear foot">
+                  <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
+                  <p class="mc-referral">
+                    <a href="http://eepurl.com/jqg0CU" title="Mailchimp - email marketing made easy and fun">
+                      <span class="mc-referral-badge">
+                        <img
+                          class="refferal_badge"
+                          src="https://digitalasset.intuit.com/render/content/dam/intuit/mc-fe/en_us/images/intuit-mc-rewards-text-dark.svg"
+                          alt="Intuit Mailchimp">
+                      </span>
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </body>
 </html>
