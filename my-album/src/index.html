@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morgan & Buckley Collective</title>
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/player.css">
     <link rel="stylesheet" href="/assets/css/mailchimp.css">
     <script type="module" src="/assets/js/main.js"></script>
     <script defer
       src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
     <script defer src="/assets/js/mailchimp.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AT9z8wq88bU1W12AkuXpP0-RO1jsQCeISMTRv5-fbLKSkNECxdk0tWvcKSp8jbNFO6DvWP5rD9Ym-PTC&currency=EUR"></script>
 
   </head>
   <body>
@@ -37,7 +37,6 @@
               <li><a href="#">Home</a></li>
               <li><a href="#">About</a></li>
               <li><a href="#">Gallery</a></li>
-              <li><a href="#">Music</a></li>
             </ul>
 
             <!-- Centered logo -->
@@ -49,10 +48,6 @@
             </a>
 
             <ul class="menu-desktop menu-right">
-              <li><a href="#">Videos</a></li>
-              <li><a href="#">Events</a></li>
-              <li><a href="#">Reviews</a></li>
-              <li><a href="#">Contact</a></li>
               <li><a href="#">Shop</a></li>
             </ul>
           </div>
@@ -62,10 +57,6 @@
     <div class="menu-items">
       <li><a href="#">Home</a></li>
       <li><a href="#">About</a></li>
-      <li><a href="#">Projects</a></li>
-      <li><a href="#">Events</a></li>
-      <li><a href="#">Reviews</a></li>
-      <li><a href="#">Contact</a></li>
       <li><a href="#">Shop</a></li>
     </div>
     <section id="hero">
@@ -79,11 +70,7 @@
             /assets/img/hero/richie-n-simon-1024w.avif 1024w,
             /assets/img/hero/richie-n-simon-1440w.avif 1440w,
             /assets/img/hero/richie-n-simon-1680w.avif 1680w"
-          sizes="(max-width: 480px) 480px,
-                 (max-width: 768px) 768px,
-                 (max-width: 1024px) 1024px,
-                 (max-width: 1440px) 1440px,
-                 (max-width: 1680px) 1680px" />
+          sizes="100vw" />
 
         <!-- WebP fallback -->
         <source
@@ -94,11 +81,7 @@
             /assets/img/hero/richie-n-simon-1024w.webp 1024w,
             /assets/img/hero/richie-n-simon-1440w.webp 1440w,
             /assets/img/hero/richie-n-simon-1680w.webp 1680w"
-          sizes="(max-width: 480px) 480px,
-                 (max-width: 768px) 768px,
-                 (max-width: 1024px) 1024px,
-                 (max-width: 1440px) 1440px,
-                 (max-width: 1680px) 1680px" />
+          sizes="100vw" />
 
         <!-- Fallback for older browsers -->
         <img
@@ -106,7 +89,7 @@
           alt="The Collective"
           width="1680"
           height="1050"
-          loading="lazy"
+          fetchpriority="high"
           decoding="async"
           style="max-width:100%;height:auto;" />
       </picture>
@@ -117,61 +100,77 @@
 
     </section>
 
-    <section class="white-filler">
+    <div class="section-container">
+    <section class="white-filler" id="about">
       <div class="upcoming-release">
-        <h2 class="paragraph-heading ">UPCOMING RELEASE</h2>
-        <h3 class="paragraph-text"><b>Simon Morgan</b> Presents <b>An Irish
-            Songbook</b></h3>
-        <h3 class="paragraph-text">Feat. <b>Richie Buckley Quintet</b></h3>
-      </div>
-    </section>
-
-    <section class="black-filler">
-      <div class="vinyl-cover-art">
-        <picture>
-          <source
-            type="image/avif"
-            srcset="
-            /assets/img/vinyl-cover/v-cover-480w.avif 480w,
-            /assets/img/vinyl-cover/v-cover-768w.avif 768w,
-            /assets/img/vinyl-cover/v-cover-1024w.avif 1024w,
-            /assets/img/vinyl-cover/v-cover-1440w.avif 1440w"
-            sizes="(max-width: 600px) 90vw,
-                 (max-width: 1024px) 50vw,
-                 30vw" />
-
-          <source
-            type="image/webp"
-            srcset="
-            /assets/img/vinyl-cover/v-cover-480w.webp 480w,
-            /assets/img/vinyl-cover/v-cover-768w.webp 768w,
-            /assets/img/vinyl-cover/v-cover-1024w.webp 1024w,
-            /assets/img/vinyl-cover/v-cover-1440w.webp 1440w"
-            sizes="(max-width: 600px) 90vw,
-                 (max-width: 1024px) 50vw,
-                 30vw" />
-
-          <img
-            src="/assets/img/vinyl-cover/v-cover-1024w.webp"
-            alt="An Irish Songbook vinyl cover artwork"
-            width="1440"
-            height="1439"
-            loading="lazy"
-            decoding="async"
-            style="max-width:100%;height:auto;" />
-        </picture>
-
-        <div class="container">
-          <label>
-            <input type="checkbox" class="play-btn" />
-            <div class="play-icon"></div>
-            <div class="pause-icon"></div>
-          </label>
+        <h2 class="paragraph-heading">An Irish Songbook</h2>
+        <div class="album-description">
+          <p>An Irish Songbook is a heartfelt celebration of Ireland's musical heritage, reimagined through the soulful lens of jazz.</p>
+          <p>Curated by Simon Morgan and Richie Buckley's Quintet, a collective of Ireland's most accomplished musicians, this project unites some of the country's finest jazz artists to explore the timeless beauty of Irish melody in a fresh, contemporary way.</p>
+          <p>Blending classical craft, jazz improvisation and traditional lyricism, An Irish Songbook offers sensitive new arrangements of beloved songs — from haunting airs to joyful ballads — each reshaped with warmth, depth and emotional sincerity.</p>
+          <p>At its core, the project is about connection: between past and present, between genres and between musicians and audience. It invites listeners to hear Ireland's songs anew — familiar yet transformed, rooted in tradition yet alive with the spontaneity of jazz.</p>
         </div>
       </div>
     </section>
 
-    <section class="white-filler" id="email-subscription">
+    <section id="vinyl-buy">
+      <div class="shop-container">
+
+        <div class="shop-image-wrap">
+          <img
+            src="/assets/img/vinyl-cover.jpg"
+            alt="An Irish Songbook — Physical CD cover art"
+            class="shop-cover"
+            width="600"
+            height="600"
+            loading="lazy"
+            decoding="async" />
+        </div>
+
+        <div class="shop-purchase-wrap">
+        <div class="shop-purchase">
+          <h2 class="paragraph-heading">Buy the Album</h2>
+
+          <div class="shop-country">
+            <label for="country-select">Estimate shipping cost</label>
+            <select id="country-select">
+              <option value="IE_NI">Ireland &amp; Northern Ireland</option>
+              <option value="GB">Great Britain</option>
+              <option value="EU">Netherlands, Belgium, France, Spain, Portugal, Germany</option>
+              <option value="US">USA</option>
+              <option value="NZ_AU">New Zealand / Australia</option>
+            </select>
+          </div>
+
+          <div class="shop-price" id="shop-price" hidden>
+            <div class="shop-price-row">
+              <span class="paragraph-text">CD</span>
+              <span class="paragraph-text">€15.00</span>
+            </div>
+            <div class="shop-price-row">
+              <span class="paragraph-text">Post &amp; Packing</span>
+              <span class="paragraph-text" id="price-shipping"></span>
+            </div>
+            <div class="shop-price-row shop-total">
+              <span class="paragraph-text">Total</span>
+              <span class="paragraph-text" id="price-total"></span>
+            </div>
+            <p class="paragraph-text shop-customs" id="customs-note" hidden>
+              * Receiver may need to pay duties on receipt, depending on customs.
+            </p>
+            <p class="paragraph-text shop-estimate-note">
+              Final total confirmed when you enter your shipping address at checkout.
+            </p>
+          </div>
+
+          <div id="paypal-button-container"></div>
+        </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="email-subscription">
       <div id="mc_embed_shell">
         <div id="mc_embed_signup">
           <form
@@ -184,10 +183,6 @@
             novalidate>
             <div id="mc_embed_signup_scroll">
               <h2>Subscribe</h2>
-              <div class="indicates-required">
-                <span class="asterisk">*</span>
-                indicates required
-              </div>
               <div class="mc-field-group">
                 <label for="mce-EMAIL">Email Address <span
                     class="asterisk">*</span></label>
@@ -225,6 +220,83 @@
         </div>
       </div>
     </section>
+    </div>
 
+    <script>
+      const PRICING = {
+        IE_NI: { shipping: 5.50,  total: 20.50, customsNote: false },
+        GB:    { shipping: 7.50,  total: 22.50, customsNote: true  },
+        EU:    { shipping: 12.00, total: 27.00, customsNote: false },
+        US:    { shipping: 17.00, total: 32.00, customsNote: true  },
+        NZ_AU: { shipping: 17.00, total: 32.00, customsNote: true  },
+      };
+
+      let paypalButtons = null;
+
+      document.getElementById('country-select').addEventListener('change', function () {
+        const country = this.value;
+        const priceBlock = document.getElementById('shop-price');
+        const container  = document.getElementById('paypal-button-container');
+        const customsNote = document.getElementById('customs-note');
+
+        if (paypalButtons) {
+          paypalButtons.close();
+          paypalButtons = null;
+          container.innerHTML = '';
+        }
+
+        if (!country) {
+          priceBlock.hidden = true;
+          return;
+        }
+
+        const p = PRICING[country];
+        document.getElementById('price-shipping').textContent = '€' + p.shipping.toFixed(2);
+        document.getElementById('price-total').textContent    = '€' + p.total.toFixed(2);
+        customsNote.hidden = !p.customsNote;
+        priceBlock.hidden  = false;
+
+        paypalButtons = paypal.Buttons({
+          async createOrder() {
+            const res = await fetch('/create-order', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ country }),
+            });
+            const order = await res.json();
+            return order.id;
+          },
+          async onShippingAddressChange(data, actions) {
+            const res = await fetch('/patch-order', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ orderID: data.orderID, countryCode: data.shippingAddress.countryCode }),
+            });
+            if (!res.ok) return actions.reject();
+            const { patches } = await res.json();
+            return actions.order.patch(patches);
+          },
+          async onApprove(data) {
+            const res = await fetch('/capture-order', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ orderID: data.orderID }),
+            });
+            const capture = await res.json();
+            if (capture.status === 'COMPLETED') {
+              alert('Payment successful! Thank you for your order.');
+            }
+          },
+          onError(err) {
+            console.error(err);
+            alert('Something went wrong with the payment. Please try again.');
+          },
+        });
+
+        paypalButtons.render('#paypal-button-container');
+      });
+
+      document.getElementById('country-select').dispatchEvent(new Event('change'));
+    </script>
   </body>
 </html>

@@ -374,61 +374,254 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
   overflow: hidden;
 }
 
-.mountain-divider {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  line-height: 0;
-  overflow: hidden;
-  background: transparent;
-  pointer-events: none;
-  z-index: 0;
+
+#about {
+  background-color: #ffffff;
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
 }
 
-.mountain-divider svg {
-  display: block;
+#about > * {
+  transform: skew(0, 4.76deg);
+}
+
+/* ---- SKEWED SECTION TRANSITIONS ---- */
+.section-container {
+  overflow: hidden;
+}
+
+.section-container section {
   width: 100%;
-  height: auto;
+  transform: skew(0, -4.76deg) translateY(calc(50vw / -12));
+  padding-block: clamp(4rem, 8vh, 7rem);
+}
+
+.section-container section > * {
+  transform: skew(0, 4.76deg) translateY(calc(50vw / 12));
+}
+
+.section-container section:last-child {
+  padding-bottom: calc(clamp(4rem, 8vh, 7rem) + 4vw);
 }
 
 .upcoming-release {
   position: relative;
   z-index: 1;
-  padding-bottom: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.4rem;
-  margin-bottom: 3rem;
+  gap: 1rem;
+  width: min(88vw, 560px);
+  text-align: center;
 }
 
-.black-filler {
+.album-description {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.2rem;
-  padding-block: clamp(3rem, 8vh, 6rem);
+  gap: 0.75rem;
+  text-align: center;
+  font-family: "Spectral", serif;
+  font-size: 0.8rem;
+  line-height: 1.75;
+  color: #444;
+  text-transform: none;
+  letter-spacing: 0.01em;
   width: 100%;
-  background-color: #000;
-  color: #fff;
-  text-transform: uppercase;
-  font-family: "Bodoni Moda", sans-serif;
-  letter-spacing: 0.08em;
-  position: relative;
-  height: 25vh;
 }
 
-.black-filler .vinyl-cover-art {
+
+/* ---- SHOP SECTION ---- */
+#email-subscription {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #111;
+  color: #ffffff;
+}
+
+#vinyl-buy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #2a0e14;
+  color: #ffffff;
+}
+
+#vinyl-buy .paragraph-heading,
+#vinyl-buy .paragraph-text,
+#vinyl-buy label {
+  color: #ffffff;
+}
+
+#vinyl-buy .shop-price {
+  border-top-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+#vinyl-buy .shop-total {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+#vinyl-buy .shop-country select {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23ffffff' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* Mobile: single column, image above purchase area */
+.shop-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+  width: min(92vw, 420px);
+}
+
+.shop-image-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.shop-purchase-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.shop-cover {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   display: block;
-  width: min(85vw, 20rem);
-  position: relative;
-  top: -5rem;
-  margin-bottom: -1rem;
-  z-index: 1;
+}
+
+.shop-purchase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  width: 100%;
+  text-align: center;
+}
+
+.shop-purchase .paragraph-heading {
+  font-size: 1.4rem;
+  line-height: 1.3;
+  margin-bottom: 0.2rem;
+}
+
+
+.shop-country {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+}
+
+.shop-country label {
+  font-family: "Bodoni Moda", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.shop-country select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  padding: 0.8rem 2.5rem 0.8rem 1rem;
+  font-family: "Spectral", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: #111;
+  background-color: #fff;
+  border: 1px solid #111;
+  border-radius: 0;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23111' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+}
+
+.shop-country select:focus {
+  outline: 1px solid #111;
+  outline-offset: 2px;
+}
+
+.shop-price {
+  width: 100%;
+  border-top: 1px solid rgba(17, 17, 17, 0.18);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.18);
+  padding-block: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.shop-price .paragraph-text {
+  text-transform: none;
+  letter-spacing: 0.03em;
+}
+
+.shop-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+}
+
+.shop-total {
+  padding-top: 0.7rem;
+  margin-top: 0.3rem;
+  border-top: 1px solid rgba(17, 17, 17, 0.18);
+}
+
+.shop-total .paragraph-text {
+  font-weight: 700 !important;
+}
+
+.shop-customs {
+  font-style: italic !important;
+  font-size: 0.7rem !important;
+  line-height: 1.6 !important;
+  opacity: 0.6;
+  margin-top: 0.6rem;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  max-width: 100%;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.shop-estimate-note {
+  font-style: italic !important;
+  font-size: 0.65rem !important;
+  line-height: 1.5 !important;
+  opacity: 0.45;
+  margin-top: 0.3rem;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+#paypal-button-container {
+  width: 100%;
 }
 
 /* ==========================================================
@@ -436,38 +629,12 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
      ========================================================== */
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  .black-filler {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0.2rem;
-    padding-block: clamp(3rem, 8vh, 6rem);
-    width: 100%;
-    background-color: #000;
-    color: #fff;
-    text-transform: uppercase;
-    font-family: "Bodoni Moda", sans-serif;
-    letter-spacing: 0.08em;
-    position: relative;
-    height: 20vh;
-  }
-
   #hero picture {
     height: 60vh;
   }
 
-  .black-filler .vinyl-cover-art {
-    width: min(60vw, 24rem);
-    margin-bottom: -6rem;
-  }
-
   #hero .hero-text h1 span {
     font-size: 3rem;
-  }
-
-  .black-filler {
-    height: 33vh;
   }
 
   .paragraph-text {
@@ -476,6 +643,25 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
 
   .paragraph-heading {
     font-size: 2.2rem;
+  }
+
+  .album-description {
+    font-size: 0.9rem;
+  }
+
+  .shop-container {
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    width: min(92vw, 860px);
+  }
+
+  .shop-image-wrap {
+    flex: 1;
+  }
+
+  .shop-purchase-wrap {
+    flex: 1;
   }
 }
 
@@ -688,19 +874,33 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
     margin-top: calc(-1 * var(--nav-desktop-height, 0px));
   }
 
-  .black-filler {
-    height: 40vh;
-  }
-  .black-filler .vinyl-cover-art {
-    width: min(43vw, 30rem);
-    top: -6rem;
-  }
-
   .paragraph-text {
     font-size: 1.4rem;
   }
 
   .paragraph-heading {
     font-size: 2.7rem;
+  }
+
+  .album-description {
+    font-size: 0.95rem;
+  }
+
+  .shop-container {
+    flex-direction: row;
+    align-items: center;
+    width: min(92vw, 960px);
+  }
+
+  .shop-image-wrap {
+    flex: 1;
+  }
+
+  .shop-purchase-wrap {
+    flex: 1;
+  }
+
+  .shop-purchase .paragraph-heading {
+    font-size: 1.8rem;
   }
 }

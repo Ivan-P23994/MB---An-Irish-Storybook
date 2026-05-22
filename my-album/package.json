@@ -3,11 +3,14 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "pages:dev": "wrangler pages dev dist",
+    "build:watch": "vite build --watch",
     "build": "vite build",
     "preview": "vite preview --strictPort"
   },
   "devDependencies": {
-    "vite": "^7.1.10"
+    "vite": "^7.1.10",
+    "wrangler": "^4.93.1"
   },
   "version": "1.0.0",
   "keywords": [],
