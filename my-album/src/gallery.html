@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery — Morgan & Buckley Collective</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script type="module" src="/assets/js/main.js"></script>
+    <style>
+      @media (min-width: 1024px) {
+        nav.is-solid {
+          --nav-desktop-transform: translateY(0);
+          --nav-desktop-offset: 0px;
+        }
+      }
+
+      #gallery-content {
+        min-height: calc(100vh - var(--nav-desktop-height, 0px));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        background: #000;
+        padding: 3rem 1.25rem;
+      }
+
+      #gallery-preview {
+        position: relative;
+        width: min(90vw, 680px);
+        aspect-ratio: 4 / 3;
+        border-radius: 10px;
+        overflow: hidden;
+        opacity: 0;
+        transition: opacity 400ms ease;
+      }
+
+      #gallery-preview::before,
+      #gallery-preview::after {
+        content: '';
+        position: absolute;
+        left: -5%;
+        width: 110%;
+        height: 22%;
+        background: #000;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      #gallery-preview::before {
+        top: -8%;
+        transform: skewY(-4.76deg);
+        transform-origin: top left;
+      }
+
+      #gallery-preview::after {
+        bottom: -8%;
+        transform: skewY(-4.76deg);
+        transform-origin: bottom right;
+      }
+
+      #gallery-preview.is-visible {
+        opacity: 1;
+      }
+
+      #gallery-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .wrapper > div.is-selected {
+        offset-anchor: 50% 10%;
+        outline: 2px solid #fff;
+        outline-offset: 3px;
+      }
+
+      .wrapper {
+        --card-trans-duration: 1000ms;
+        --card-trans-easing: linear(0, 0.01 0.8%, 0.038 1.6%, 0.154 3.4%, 0.781 9.7%, 1.01 12.5%, 1.089 13.8%, 1.153 15.2%, 1.195 16.6%, 1.219 18%, 1.224 19.7%, 1.208 21.6%, 1.172 23.6%, 1.057 28.6%, 1.007 31.2%, 0.969 34.1%, 0.951 37.1%, 0.953 40.9%, 0.998 50.4%, 1.011 56%, 0.998 74.7%, 1);
+        --card-border-radius: 10px;
+        --card-width: 22vmin;
+        --radius: 52vmin;
+        --cards: sibling-count();
+        @supports not (order: sibling-index()) {
+          --cards: 5;
+        }
+        --arc-size: 0.25;
+        --arc-center: 0.75;
+        --arc-start: calc(var(--arc-center) - var(--arc-size) / 2);
+        --arc-shift: 0;
+        --arc-shift-delta: 0.01;
+
+        position: relative;
+        width: var(--card-width);
+        aspect-ratio: 4 / 6;
+      }
+
+      .wrapper > div {
+        --card-i: sibling-index();
+        @supports not (order: sibling-index()) {
+          &:nth-child(1) { --card-i: 1; }
+          &:nth-child(2) { --card-i: 2; }
+          &:nth-child(3) { --card-i: 3; }
+          &:nth-child(4) { --card-i: 4; }
+          &:nth-child(5) { --card-i: 5; }
+        }
+        --arc-step: calc(var(--arc-size) / (var(--cards) - 1));
+
+        position: absolute;
+        width: var(--card-width);
+        aspect-ratio: 4 / 6;
+        background: #111;
+        border-radius: var(--card-border-radius);
+
+        offset-path: circle(var(--radius) at 50% 100%);
+        offset-distance: calc(
+          (var(--arc-start) + (var(--card-i) - 1) * var(--arc-step) + var(--arc-shift)) * 100%
+        );
+        offset-rotate: auto;
+        offset-anchor: 50% 0%;
+        transition: all var(--card-trans-duration) var(--card-trans-easing);
+      }
+
+      .wrapper > div:where(:nth-child(1), :nth-child(5)) { z-index: 0; }
+      .wrapper > div:where(:nth-child(2), :nth-child(4)) { z-index: 1; }
+      .wrapper > div:nth-child(3)                        { z-index: 2; }
+
+      .wrapper > div:hover {
+        offset-anchor: 50% 10%;
+      }
+      .wrapper > div:hover + div                 { --arc-shift: calc(var(--arc-shift-delta) * 3); }
+      .wrapper > div:hover + div + div           { --arc-shift: calc(var(--arc-shift-delta) * 2); }
+      .wrapper > div:hover + div + div + div     { --arc-shift: calc(var(--arc-shift-delta) * 1); }
+
+      .wrapper > div:has(+ *:hover)              { --arc-shift: calc(var(--arc-shift-delta) * -3); }
+      .wrapper > div:has(+ * + *:hover)          { --arc-shift: calc(var(--arc-shift-delta) * -2); }
+      .wrapper > div:has(+ * + * + *:hover)      { --arc-shift: calc(var(--arc-shift-delta) * -1); }
+
+      .wrapper > div > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: inherit;
+      }
+
+    </style>
+  </head>
+  <body>
+    <nav class="is-solid">
+      <div class="navbar">
+        <div class="nav-container">
+          <div class="logo-hamburger" aria-label="Morgan & Buckley Logo">
+            <img
+              src="/assets/img/logo/black-logo/M(2).png"
+              alt="Morgan & Buckley emblem"
+              fetchpriority="high" />
+            <h1>Morgan & Buckley</h1>
+          </div>
+          <input class="checkbox" type="checkbox" id="menuToggle" />
+          <div class="hamburger-lines">
+            <span class="line line1"></span>
+            <span class="line line2"></span>
+            <span class="line line3"></span>
+          </div>
+
+          <div class="menu-desktop-container">
+            <ul class="menu-desktop menu-left">
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+
+            <a class="logo-desktop" aria-label="Morgan & Buckley Logo" href="/">
+              <img
+                src="/assets/img/logo/black-logo/M(2).png"
+                alt="M & G"
+                fetchpriority="high" />
+            </a>
+
+            <ul class="menu-desktop menu-right">
+              <li><a href="/gallery" aria-current="page">Gallery</a></li>
+              <li><a href="/?scrollTo=vinyl-buy">Shop</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="menu-items">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/gallery" aria-current="page">Gallery</a></li>
+      <li><a href="/?scrollTo=vinyl-buy">Shop</a></li>
+    </div>
+
+    <section id="gallery-content">
+      <div class="wrapper">
+        <div><img src="/assets/img/gallery/web/The40Foot_8.webp" alt="The 40 Foot" loading="lazy"></div>
+        <div><img src="/assets/img/gallery/web/about-us-bend.webp" alt="Morgan & Buckley" loading="lazy"></div>
+        <div><img src="/assets/img/gallery/web/PubFun.webp" alt="Pub performance" loading="lazy"></div>
+        <div><img src="/assets/img/gallery/web/The40Foot_15.webp" alt="The 40 Foot" loading="lazy"></div>
+        <div><img src="/assets/img/gallery/web/The40Foot_9.webp" alt="The 40 Foot" loading="lazy"></div>
+      </div>
+      <div id="gallery-preview">
+        <img src="" alt="">
+      </div>
+    </section>
+
+    <script>
+      const cards = document.querySelectorAll('.wrapper > div');
+      const preview = document.getElementById('gallery-preview');
+      const previewImg = preview.querySelector('img');
+
+      const third = cards[2];
+      third.classList.add('is-selected');
+      previewImg.src = third.querySelector('img').src;
+      previewImg.alt = third.querySelector('img').alt;
+      preview.classList.add('is-visible');
+
+      cards.forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => {
+          const src = card.querySelector('img').src;
+          const alt = card.querySelector('img').alt;
+
+          if (card.classList.contains('is-selected')) {
+            card.classList.remove('is-selected');
+            preview.classList.remove('is-visible');
+            return;
+          }
+
+          cards.forEach(c => c.classList.remove('is-selected'));
+          card.classList.add('is-selected');
+          previewImg.src = src;
+          previewImg.alt = alt;
+          preview.classList.add('is-visible');
+        });
+      });
+    </script>
+  </body>
+</html>

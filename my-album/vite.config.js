@@ -1,4 +1,8 @@
 import { defineConfig } from "vite";
+import { resolve } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig({
   root: "src",
@@ -6,6 +10,13 @@ export default defineConfig({
   build: {
     outDir: "../dist",
     emptyOutDir: true,
-    assetsDir: "assets"
-  }
+    assetsDir: "assets",
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, "src/index.html"),
+        about: resolve(__dirname, "src/about.html"),
+        gallery: resolve(__dirname, "src/gallery.html"),
+      },
+    },
+  },
 });

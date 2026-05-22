@@ -3,6 +3,32 @@ import logoBlackUrl from "../img/logo/black-logo/M(2).png";
 
 // /assets/js/main.js
 document.addEventListener("DOMContentLoaded", () => {
+  // Close hamburger when a mobile nav link is clicked
+  const menuToggle = document.getElementById("menuToggle");
+  if (menuToggle) {
+    document.querySelectorAll(".menu-items a").forEach(link => {
+      link.addEventListener("click", () => { menuToggle.checked = false; });
+    });
+  }
+
+  // Cross-page smooth scroll: ?scrollTo=section-id
+  const params = new URLSearchParams(window.location.search);
+  const scrollTarget = params.get("scrollTo");
+  if (scrollTarget) {
+    const el = document.getElementById(scrollTarget);
+    if (el) {
+      history.replaceState(null, "", window.location.pathname);
+      const doScroll = () => {
+        setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 200);
+      };
+      if (document.readyState === "complete") {
+        doScroll();
+      } else {
+        window.addEventListener("load", doScroll, { once: true });
+      }
+    }
+  }
+
   const hero = document.getElementById("hero");
   if (!hero) return;
   const nav = document.querySelector("nav");

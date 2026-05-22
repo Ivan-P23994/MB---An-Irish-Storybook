@@ -47,6 +47,9 @@ export async function onRequestPost(context) {
       },
       body: JSON.stringify({
         intent: "CAPTURE",
+        application_context: {
+          shipping_preference: "GET_FROM_FILE",
+        },
         purchase_units: [
           {
             reference_id: "default",

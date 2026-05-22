@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Morgan & Buckley Collective</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script type="module" src="/assets/js/main.js"></script>
+    <style>
+      @media (min-width: 1024px) {
+        nav.is-solid {
+          --nav-desktop-transform: translateY(0);
+          --nav-desktop-offset: 0px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="is-solid">
+      <div class="navbar">
+        <div class="nav-container">
+          <div class="logo-hamburger" aria-label="Morgan & Buckley Logo">
+            <img
+              src="/assets/img/logo/black-logo/M(2).png"
+              alt="Morgan & Buckley emblem"
+              fetchpriority="high" />
+            <h1>Morgan & Buckley</h1>
+          </div>
+          <!-- Mobile controls (hidden at ≥1024px) -->
+          <input class="checkbox" type="checkbox" id="menuToggle" />
+          <div class="hamburger-lines">
+            <span class="line line1"></span>
+            <span class="line line2"></span>
+            <span class="line line3"></span>
+          </div>
+
+          <div class="menu-desktop-container">
+            <ul class="menu-desktop menu-left">
+              <li><a href="/">Home</a></li>
+              <li><a href="/about" aria-current="page">About</a></li>
+            </ul>
+
+            <!-- Centered logo -->
+            <a class="logo-desktop" aria-label="Morgan & Buckley Logo" href="/">
+              <img
+                src="/assets/img/logo/black-logo/M(2).png"
+                alt="M & G"
+                fetchpriority="high" />
+            </a>
+
+            <ul class="menu-desktop menu-right">
+              <li><a href="/gallery">Gallery</a></li>
+              <li><a href="/?scrollTo=vinyl-buy">Shop</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="menu-items">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about" aria-current="page">About</a></li>
+      <li><a href="/gallery">Gallery</a></li>
+      <li><a href="/?scrollTo=vinyl-buy">Shop</a></li>
+    </div>
+
+    <main>
+      <div class="section-container">
+        <section id="about-hero">
+          <div class="about-photo-wrap">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="
+                  /assets/img/about-us-bend/about-us-bend-480w.avif   480w,
+                  /assets/img/about-us-bend/about-us-bend-768w.avif   768w,
+                  /assets/img/about-us-bend/about-us-bend-1024w.avif 1024w,
+                  /assets/img/about-us-bend/about-us-bend-1440w.avif 1440w,
+                  /assets/img/about-us-bend/about-us-bend-1680w.avif 1680w"
+                sizes="100vw" />
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/about-us-bend/about-us-bend-480w.webp   480w,
+                  /assets/img/about-us-bend/about-us-bend-768w.webp   768w,
+                  /assets/img/about-us-bend/about-us-bend-1024w.webp 1024w,
+                  /assets/img/about-us-bend/about-us-bend-1440w.webp 1440w,
+                  /assets/img/about-us-bend/about-us-bend-1680w.webp 1680w"
+                sizes="100vw" />
+              <img
+                src="/assets/img/about-us-bend/about-us-bend-1024w.webp"
+                alt="Simon Morgan & Richie Buckley Quintet"
+                loading="lazy"
+                decoding="async"
+                style="width:100%;height:auto;display:block;" />
+            </picture>
+          </div>
+        </section>
+
+        <section class="white-filler" id="about-text">
+          <div class="about-content">
+            <div class="album-description">
+              <p>The Simon Morgan & Richie Buckley Quintet brings together two of Ireland's most distinctive musical voices in a powerful meeting of artistry and tradition.</p>
+              <p>Fronted by Simon Morgan, one of the most acclaimed and versatile Irish voices, and Richie Buckley, the legendary jazz saxophonist celebrated for his expressive tone and world-class improvisation, the quintet creates music that both honours and reimagines timeless standards within the Irish and jazz traditions.</p>
+              <p>Themes of home, family, mythology, folk tradition, joy, and loss flow through their music, bound together by a deep devotion to melody, connection and the timeless power of storytelling.</p>
+              <p>Their performances weave together musical sophistication, improvisational freedom, and the lyrical beauty of Irish song, offering fresh interpretations of Ireland's most cherished melodies. Drawing on Morgan's broad vocal range across jazz, folk, and contemporary styles, and Buckley's deep jazz heritage, the group reimagines familiar tunes through sensitive new arrangements and inspired improvisation.</p>
+              <p>Blurring the lines between genres, the quintet's sound is both rooted in tradition and alive with contemporary energy — a vibrant celebration of Ireland's musical soul, expressed through the universal language of jazz.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
