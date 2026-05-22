@@ -145,10 +145,6 @@
 
           <div class="shop-price" id="shop-price" hidden>
             <div class="shop-price-row">
-              <span class="paragraph-text">CD</span>
-              <span class="paragraph-text">€15.00</span>
-            </div>
-            <div class="shop-price-row">
               <span class="paragraph-text">Post &amp; Packing</span>
               <span class="paragraph-text" id="price-shipping"></span>
             </div>
@@ -236,8 +232,8 @@
 
       document.getElementById('country-select').addEventListener('change', function () {
         const country = this.value;
-        const priceBlock = document.getElementById('shop-price');
-        const container  = document.getElementById('paypal-button-container');
+        const priceBlock  = document.getElementById('shop-price');
+        const container   = document.getElementById('paypal-button-container');
         const customsNote = document.getElementById('customs-note');
 
         if (paypalButtons) {
@@ -266,6 +262,16 @@
             });
             const order = await res.json();
             return order.id;
+          },
+          async onShippingAddressChange(data, actions) {
+            const res = await fetch('/patch-order', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ orderID: data.orderID, countryCode: data.shippingAddress.countryCode }),
+            });
+            if (!res.ok) return actions.reject();
+            const { patches } = await res.json();
+            return actions.order.patch(patches);
           },
           async onApprove(data) {
             const res = await fetch('/capture-order', {

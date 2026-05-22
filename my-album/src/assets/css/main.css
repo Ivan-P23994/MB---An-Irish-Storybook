@@ -567,6 +567,7 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
   outline-offset: 2px;
 }
 
+
 .shop-price {
   width: 100%;
   border-top: 1px solid rgba(17, 17, 17, 0.18);
