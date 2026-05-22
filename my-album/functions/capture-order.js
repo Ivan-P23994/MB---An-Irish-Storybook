@@ -6,7 +6,7 @@ export async function onRequestPost(context) {
   const auth = btoa(`${env.PAYPAL_CLIENT_ID}:${env.PAYPAL_CLIENT_SECRET}`);
 
   const tokenRes = await fetch(
-    "https://api-m.sandbox.paypal.com/v1/oauth2/token",
+    "https://api-m.paypal.com/v1/oauth2/token",
     {
       method: "POST",
       headers: {
@@ -20,7 +20,7 @@ export async function onRequestPost(context) {
   const { access_token } = await tokenRes.json();
 
   const captureRes = await fetch(
-    `https://api-m.sandbox.paypal.com/v2/checkout/orders/${orderID}/capture`,
+    `https://api-m.paypal.com/v2/checkout/orders/${orderID}/capture`,
     {
       method: "POST",
       headers: {
