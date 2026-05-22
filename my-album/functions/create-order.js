@@ -1,25 +1,31 @@
-const CD_PRICE = "15.00";
+const CD_UNIT = 15.00;
 
 const SHIPPING = {
-  IE_NI: { amount: "5.50",  total: "20.50" },
-  GB:    { amount: "7.50",  total: "22.50" },
-  EU:    { amount: "12.00", total: "27.00" },
-  US:    { amount: "17.00", total: "32.00" },
-  NZ_AU: { amount: "17.00", total: "32.00" },
+  IE_NI: 5.50,
+  GB:    7.50,
+  EU:    12.00,
+  US:    17.00,
+  NZ_AU: 17.00,
 };
+
+function fmt(n) { return n.toFixed(2); }
 
 export async function onRequestPost(context) {
   const { env, request } = context;
 
-  const { country } = await request.json();
-  const shipping = SHIPPING[country];
+  const { country, qty: rawQty } = await request.json();
+  const qty = Math.max(1, Math.min(99, parseInt(rawQty, 10) || 1));
+  const shippingAmt = SHIPPING[country];
 
-  if (!shipping) {
+  if (shippingAmt === undefined) {
     return new Response(JSON.stringify({ error: "Invalid country" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });
   }
+
+  const cdTotal = CD_UNIT * qty;
+  const total   = cdTotal + shippingAmt;
 
   const auth = btoa(`${env.PAYPAL_CLIENT_ID}:${env.PAYPAL_CLIENT_SECRET}`);
 
@@ -47,23 +53,26 @@ export async function onRequestPost(context) {
       },
       body: JSON.stringify({
         intent: "CAPTURE",
+        application_context: {
+          shipping_preference: "GET_FROM_FILE",
+        },
         purchase_units: [
           {
             reference_id: "default",
             amount: {
               currency_code: "EUR",
-              value: shipping.total,
+              value: fmt(total),
               breakdown: {
-                item_total: { currency_code: "EUR", value: CD_PRICE },
-                shipping:   { currency_code: "EUR", value: shipping.amount },
+                item_total: { currency_code: "EUR", value: fmt(cdTotal) },
+                shipping:   { currency_code: "EUR", value: fmt(shippingAmt) },
               },
             },
             description: "An Irish Songbook — Physical CD",
             items: [
               {
                 name: "An Irish Songbook",
-                unit_amount: { currency_code: "EUR", value: CD_PRICE },
-                quantity: "1",
+                unit_amount: { currency_code: "EUR", value: fmt(CD_UNIT) },
+                quantity: String(qty),
                 category: "PHYSICAL_GOODS",
               },
             ],

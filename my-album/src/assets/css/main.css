@@ -569,6 +569,65 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
   outline-offset: 2px;
 }
 
+.shop-qty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+}
+
+.shop-qty label {
+  font-family: "Bodoni Moda", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.qty-stepper {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 100%;
+  overflow: hidden;
+}
+
+.qty-btn {
+  flex: 0 0 2.75rem;
+  height: 2.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  font-family: "Spectral", sans-serif;
+}
+
+.qty-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.qty-btn:disabled {
+  color: rgba(255, 255, 255, 0.25);
+  cursor: not-allowed;
+}
+
+#qty-display {
+  flex: 1;
+  text-align: center;
+  font-family: "Spectral", sans-serif;
+  font-size: 0.95rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  height: 2.75rem;
+  line-height: 2.75rem;
+  user-select: none;
+}
 
 .shop-price {
   width: 100%;
@@ -629,6 +688,105 @@ nav:has(.nav-container input[type="checkbox"]:checked) + .menu-items li,
 
 #paypal-button-container {
   width: 100%;
+}
+
+.card-toggle {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0 0;
+  height: 44px;
+  background: #ffc439;
+  border: none;
+  border-radius: 4px;
+  color: #111;
+  font-family: "PayPal Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.15s ease, filter 0.15s ease;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.card-toggle::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='2' y='5' width='20' height='14' rx='2' fill='none' stroke='%23111' stroke-width='1.5'/%3E%3Cline x1='2' y1='10' x2='22' y2='10' stroke='%23111' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.card-toggle:hover {
+  filter: brightness(0.95);
+}
+
+.card-toggle.is-open {
+  background: #e8b000;
+}
+
+#card-fields-body {
+  margin-top: 1rem;
+}
+
+.card-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.85rem;
+}
+
+.card-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.card-input-host {
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 0;
+  transition: border-color 0.2s ease;
+}
+
+.card-fields-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+#card-pay-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.85rem 2rem;
+  border: none;
+  border-radius: 0;
+  background: #2a0e14;
+  color: #fff;
+  font-family: "Bodoni Moda", serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#card-pay-btn:hover:not(:disabled) {
+  background: #3d1420;
+  transform: translateY(-1px);
+}
+
+#card-pay-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* ==========================================================

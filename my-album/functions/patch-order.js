@@ -1,4 +1,4 @@
-const CD_PRICE = "15.00";
+const CD_UNIT = 15.00;
 
 const COUNTRY_TO_GROUP = {
   IE: "IE_NI",
@@ -9,16 +9,19 @@ const COUNTRY_TO_GROUP = {
 };
 
 const SHIPPING = {
-  IE_NI: { amount: "5.50",  total: "20.50" },
-  GB:    { amount: "7.50",  total: "22.50" },
-  EU:    { amount: "12.00", total: "27.00" },
-  US:    { amount: "17.00", total: "32.00" },
-  NZ_AU: { amount: "17.00", total: "32.00" },
+  IE_NI: 5.50,
+  GB:    7.50,
+  EU:    12.00,
+  US:    17.00,
+  NZ_AU: 17.00,
 };
+
+function fmt(n) { return n.toFixed(2); }
 
 export async function onRequestPost(context) {
   const { request } = context;
-  const { countryCode } = await request.json();
+  const { countryCode, qty: rawQty } = await request.json();
+  const qty = Math.max(1, Math.min(99, parseInt(rawQty, 10) || 1));
 
   const group = COUNTRY_TO_GROUP[countryCode];
 
@@ -29,7 +32,9 @@ export async function onRequestPost(context) {
     });
   }
 
-  const shipping = SHIPPING[group];
+  const shippingAmt = SHIPPING[group];
+  const cdTotal = CD_UNIT * qty;
+  const total   = cdTotal + shippingAmt;
 
   return Response.json({
     patches: [
@@ -38,10 +43,10 @@ export async function onRequestPost(context) {
         path: "/purchase_units/@reference_id=='default'/amount",
         value: {
           currency_code: "EUR",
-          value: shipping.total,
+          value: fmt(total),
           breakdown: {
-            item_total: { currency_code: "EUR", value: CD_PRICE },
-            shipping:   { currency_code: "EUR", value: shipping.amount },
+            item_total: { currency_code: "EUR", value: fmt(cdTotal) },
+            shipping:   { currency_code: "EUR", value: fmt(shippingAmt) },
           },
         },
       },

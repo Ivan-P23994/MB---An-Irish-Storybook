@@ -48,7 +48,7 @@
 
             <ul class="menu-desktop menu-right">
               <li><a href="/gallery">Gallery</a></li>
-              <li><a href="#vinyl-buy">Shop</a></li>
+              <!-- <li><a href="#vinyl-buy">Shop</a></li> -->
             </ul>
           </div>
         </div>
@@ -58,7 +58,7 @@
       <li><a href="#">Home</a></li>
       <li><a href="/about">About</a></li>
       <li><a href="/gallery">Gallery</a></li>
-      <li><a href="#vinyl-buy">Shop</a></li>
+      <!-- <li><a href="#vinyl-buy">Shop</a></li> -->
     </div>
     <section id="hero">
       <picture>
@@ -143,7 +143,20 @@
             </select>
           </div>
 
+          <div class="shop-qty">
+            <label>Quantity</label>
+            <div class="qty-stepper">
+              <button class="qty-btn" id="qty-minus" type="button" aria-label="Decrease quantity">−</button>
+              <span id="qty-display">1</span>
+              <button class="qty-btn" id="qty-plus" type="button" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+
           <div class="shop-price" id="shop-price" hidden>
+            <div class="shop-price-row">
+              <span class="paragraph-text" id="price-cd-label">CD</span>
+              <span class="paragraph-text" id="price-cd"></span>
+            </div>
             <div class="shop-price-row">
               <span class="paragraph-text">Post &amp; Packing</span>
               <span class="paragraph-text" id="price-shipping"></span>
@@ -161,6 +174,7 @@
           </div>
 
           <div id="paypal-button-container"></div>
+
         </div>
         </div>
 
@@ -220,18 +234,47 @@
     </div>
 
     <script>
-      const PRICING = {
-        IE_NI: { shipping: 5.50,  total: 20.50, customsNote: false },
-        GB:    { shipping: 7.50,  total: 22.50, customsNote: true  },
-        EU:    { shipping: 12.00, total: 27.00, customsNote: false },
-        US:    { shipping: 17.00, total: 32.00, customsNote: true  },
-        NZ_AU: { shipping: 17.00, total: 32.00, customsNote: true  },
+      const CD_PRICE = 15.00;
+
+      const SHIPPING = {
+        IE_NI: { shipping: 5.50,  customsNote: false },
+        GB:    { shipping: 7.50,  customsNote: true  },
+        EU:    { shipping: 12.00, customsNote: false },
+        US:    { shipping: 17.00, customsNote: true  },
+        NZ_AU: { shipping: 17.00, customsNote: true  },
       };
 
       let paypalButtons = null;
 
-      document.getElementById('country-select').addEventListener('change', function () {
-        const country = this.value;
+      function getCountry() { return document.getElementById('country-select').value; }
+
+      let qty = 1;
+      const qtyDisplay = document.getElementById('qty-display');
+      const qtyMinus   = document.getElementById('qty-minus');
+      const qtyPlus    = document.getElementById('qty-plus');
+
+      function setQty(n) {
+        qty = Math.max(1, Math.min(99, n));
+        qtyDisplay.textContent = qty;
+        qtyMinus.disabled = qty === 1;
+        renderShop();
+      }
+
+      qtyMinus.addEventListener('click', () => setQty(qty - 1));
+      qtyPlus.addEventListener('click',  () => setQty(qty + 1));
+
+      function getQty() { return qty; }
+
+      function calcPricing(country, qty) {
+        const s = SHIPPING[country];
+        const cdTotal = CD_PRICE * qty;
+        const total   = cdTotal + s.shipping;
+        return { cdTotal, shipping: s.shipping, total, customsNote: s.customsNote };
+      }
+
+      function renderShop() {
+        const country     = getCountry();
+        const qty         = getQty();
         const priceBlock  = document.getElementById('shop-price');
         const container   = document.getElementById('paypal-button-container');
         const customsNote = document.getElementById('customs-note');
@@ -247,7 +290,9 @@
           return;
         }
 
-        const p = PRICING[country];
+        const p = calcPricing(country, qty);
+        document.getElementById('price-cd-label').textContent = qty > 1 ? `CD × ${qty}` : 'CD';
+        document.getElementById('price-cd').textContent       = '€' + p.cdTotal.toFixed(2);
         document.getElementById('price-shipping').textContent = '€' + p.shipping.toFixed(2);
         document.getElementById('price-total').textContent    = '€' + p.total.toFixed(2);
         customsNote.hidden = !p.customsNote;
@@ -258,20 +303,10 @@
             const res = await fetch('/create-order', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ country }),
+              body: JSON.stringify({ country, qty }),
             });
             const order = await res.json();
             return order.id;
-          },
-          async onShippingAddressChange(data, actions) {
-            const res = await fetch('/patch-order', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ orderID: data.orderID, countryCode: data.shippingAddress.countryCode }),
-            });
-            if (!res.ok) return actions.reject();
-            const { patches } = await res.json();
-            return actions.order.patch(patches);
           },
           async onApprove(data) {
             const res = await fetch('/capture-order', {
@@ -281,7 +316,7 @@
             });
             const capture = await res.json();
             if (capture.status === 'COMPLETED') {
-              alert('Payment successful! Thank you for your order.');
+              window.location.replace('/order-confirmation?order=' + capture.id);
             }
           },
           onError(err) {
@@ -291,7 +326,9 @@
         });
 
         paypalButtons.render('#paypal-button-container');
-      });
+      }
+
+      document.getElementById('country-select').addEventListener('change', renderShop);
 
       document.getElementById('country-select').dispatchEvent(new Event('change'));
     </script>

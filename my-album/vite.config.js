@@ -21,6 +21,7 @@ export default defineConfig({
         main: resolve(__dirname, "src/index.html"),
         about: resolve(__dirname, "src/about.html"),
         gallery: resolve(__dirname, "src/gallery.html"),
+        "order-confirmation": resolve(__dirname, "src/order-confirmation.html"),
       },
     },
   },

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed — Morgan & Buckley Collective</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script type="module" src="/assets/js/main.js"></script>
+    <style>
+      @media (min-width: 1024px) {
+        nav.is-solid {
+          --nav-desktop-transform: translateY(0);
+          --nav-desktop-offset: 0px;
+        }
+      }
+
+      #confirmation-content {
+        min-height: calc(100vh - 80px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #2a0e14;
+        padding: 4rem 1.25rem;
+      }
+
+      .confirmation-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        width: min(100%, 520px);
+        text-align: center;
+      }
+
+      .confirmation-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .confirmation-icon svg {
+        width: 28px;
+        height: 28px;
+        stroke: #fff;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .confirmation-heading {
+        font-family: "Bodoni Moda", serif;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #fff;
+        margin: 0;
+      }
+
+      .confirmation-body {
+        font-family: "Spectral", serif;
+        font-size: 0.95rem;
+        color: rgba(255,255,255,0.7);
+        line-height: 1.7;
+        margin: 0;
+      }
+
+      .confirmation-ref {
+        font-family: "Spectral", serif;
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.35);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin: 0;
+      }
+
+      .confirmation-divider {
+        width: 40px;
+        height: 1px;
+        background: rgba(255,255,255,0.2);
+      }
+
+      .confirmation-home {
+        cursor: pointer;
+        display: inline-block;
+        margin-top: 0.5rem;
+        padding: 0.8rem 2.5rem;
+        border: 1px solid rgba(255,255,255,0.3);
+        color: #fff;
+        font-family: "Bodoni Moda", serif;
+        font-size: 0.8rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: border-color 0.2s ease, background 0.2s ease;
+      }
+
+      .confirmation-home:hover {
+        border-color: rgba(255,255,255,0.7);
+        background: rgba(255,255,255,0.06);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="is-solid">
+      <div class="navbar">
+        <div class="nav-container">
+          <div class="logo-hamburger" aria-label="Morgan & Buckley Logo">
+            <img
+              src="/assets/img/logo/black-logo/M(2).png"
+              alt="Morgan & Buckley emblem"
+              fetchpriority="high" />
+            <h1>Morgan & Buckley</h1>
+          </div>
+          <input class="checkbox" type="checkbox" id="menuToggle" />
+          <div class="hamburger-lines">
+            <span class="line line1"></span>
+            <span class="line line2"></span>
+            <span class="line line3"></span>
+          </div>
+
+          <div class="menu-desktop-container">
+            <ul class="menu-desktop menu-left">
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+
+            <a class="logo-desktop" aria-label="Morgan & Buckley Logo" href="/">
+              <img
+                src="/assets/img/logo/black-logo/M(2).png"
+                alt="M & G"
+                fetchpriority="high" />
+            </a>
+
+            <ul class="menu-desktop menu-right">
+              <li><a href="/gallery">Gallery</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="menu-items">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/gallery">Gallery</a></li>
+    </div>
+
+    <section id="confirmation-content">
+      <div class="confirmation-card">
+        <div class="confirmation-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h1 class="confirmation-heading">Order Confirmed</h1>
+        <div class="confirmation-divider"></div>
+        <p class="confirmation-body">
+          Thank you for your purchase of <em>An Irish Songbook</em>.<br>
+          Your CD will be dispatched shortly. A shipping confirmation will follow by email.
+        </p>
+        <p class="confirmation-ref" id="order-ref"></p>
+        <a href="/" class="confirmation-home">Return Home</a>
+      </div>
+    </section>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get('order');
+      if (orderId) {
+        document.getElementById('order-ref').textContent = 'Order ref: ' + orderId;
+      }
+    </script>
+  </body>
+</html>
