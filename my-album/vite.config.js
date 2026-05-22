@@ -12,6 +12,11 @@ export default defineConfig({
     emptyOutDir: true,
     assetsDir: "assets",
     rollupOptions: {
+      output: {
+        assetFileNames: "assets/[name]-v2-[hash][extname]",
+        chunkFileNames: "assets/[name]-v2-[hash].js",
+        entryFileNames: "assets/[name]-v2-[hash].js",
+      },
       input: {
         main: resolve(__dirname, "src/index.html"),
         about: resolve(__dirname, "src/about.html"),
